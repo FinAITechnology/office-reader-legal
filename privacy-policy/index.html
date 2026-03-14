@@ -75,25 +75,39 @@
 <div class="container">
 
     <h2>Overview</h2>
-    <p><strong>Last updated:</strong> February 11, 2026</p>
-    <p>TechLead ("we", "our", or "us") built the Office Reader app as a Free app. This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information.</p>
+    <p><strong>Last updated:</strong> March 14, 2026</p>
+    <p>TechLead ("we", "our", or "us") built the Office Reader app as a Free app. This page is used
+        to inform visitors regarding our policies with the collection, use, and disclosure of
+        Personal Information.</p>
 
     <div class="highlight">
-        <p>🛡️ <strong>Your privacy matters.</strong> Office Reader processes all documents locally on your device. We do not upload, store, or have access to your files.</p>
+        <p>🛡️ <strong>Your privacy matters.</strong> Office Reader processes all documents locally
+            on your device. We do not upload, store, or have access to your files.</p>
     </div>
 
     <h2>Information We Collect</h2>
     <p>We collect minimal data to improve app performance and stability:</p>
     <ul>
-        <li><strong>Analytics data:</strong> Anonymous usage statistics such as which features are used, screen views, and app interactions (via Firebase Analytics)</li>
-        <li><strong>Crash reports:</strong> Technical crash data including device model, OS version, and stack traces to fix bugs (via Firebase Crashlytics)</li>
-        <li><strong>Device identifiers:</strong> Anonymous device IDs for analytics and push notification delivery (via Firebase Cloud Messaging)</li>
+        <li><strong>Account information (optional):</strong> If you create an account (Sign Up), we
+            collect your email, display name, and optional profile photo. This data is stored on
+            Supabase for sign-in, profile sync, and features like leaderboard. Account creation is
+            <strong>optional</strong> — you can use the app without an account.
+        </li>
+        <li><strong>Analytics data:</strong> Anonymous usage statistics such as which features are
+            used, screen views, and app interactions (via Firebase Analytics)
+        </li>
+        <li><strong>Crash reports:</strong> Technical crash data including device model, OS version,
+            and stack traces to fix bugs (via Firebase Crashlytics)
+        </li>
+        <li><strong>Device identifiers:</strong> Anonymous device IDs for analytics and push
+            notification delivery (via Firebase Cloud Messaging)
+        </li>
     </ul>
 
     <h2>Information We Do NOT Collect</h2>
     <ul>
         <li>❌ Your documents, files, or their contents</li>
-        <li>❌ Personal information (name, email, phone number)</li>
+        <li>❌ Personal information — <em>unless you create an account</em> (then we collect email, name, avatar)</li>
         <li>❌ Location data</li>
         <li>❌ Contacts or call logs</li>
         <li>❌ Browsing history</li>
@@ -103,10 +117,18 @@
     <h2>Permissions</h2>
     <p>Office Reader requests the following permissions:</p>
     <ul>
-        <li><strong>Storage Access:</strong> To scan, open, and manage documents on your device. Files are processed entirely on-device and never uploaded.</li>
-        <li><strong>Camera:</strong> For the document scanner feature. Photos are processed locally and saved only to your device storage.</li>
-        <li><strong>Internet:</strong> For Google Drive integration, crash reporting, analytics, and checking for app updates.</li>
-        <li><strong>Notifications:</strong> To send you update notifications (opt-in on Android 13+).</li>
+        <li><strong>Storage Access:</strong> To scan, open, and manage documents on your device.
+            Files are processed entirely on-device and never uploaded.
+        </li>
+        <li><strong>Camera:</strong> For the document scanner feature. Photos are processed locally
+            and saved only to your device storage.
+        </li>
+        <li><strong>Internet:</strong> For Google Drive integration, crash reporting, analytics, and
+            checking for app updates.
+        </li>
+        <li><strong>Notifications:</strong> To send you update notifications (opt-in on Android
+            13+).
+        </li>
     </ul>
 
     <h2>Google Drive</h2>
@@ -122,17 +144,32 @@
     <h2>Third-Party Services</h2>
     <p>We use the following third-party services that may collect data:</p>
     <ul>
-        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Analytics</a> — Usage analytics</li>
-        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Crashlytics</a> — Crash reporting</li>
-        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Cloud Messaging</a> — Push notifications</li>
-        <li><a href="https://policies.google.com/privacy" target="_blank">Google Play Services</a> — Core Google services</li>
-        <li><a href="https://policies.google.com/privacy" target="_blank">Google Drive API</a> — Cloud file access</li>
+        <li><a href="https://supabase.com/privacy" target="_blank">Supabase</a> — Account
+            authentication and profile data (email, display name, avatar) when you create an account
+        </li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase
+            Analytics</a> — Usage analytics
+        </li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase
+            Crashlytics</a> — Crash reporting
+        </li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Cloud
+            Messaging</a> — Push notifications
+        </li>
+        <li><a href="https://policies.google.com/privacy" target="_blank">Google Play Services</a> —
+            Core Google services
+        </li>
+        <li><a href="https://policies.google.com/privacy" target="_blank">Google Drive API</a> —
+            Cloud file access
+        </li>
     </ul>
 
     <h2>GDPR Compliance</h2>
     <p>For users in the European Economic Area (EEA):</p>
     <ul>
-        <li>We request consent before collecting analytics data using Google's User Messaging Platform (UMP)</li>
+        <li>We request consent before collecting analytics data using Google's User Messaging
+            Platform (UMP)
+        </li>
         <li>You can change your consent preferences at any time</li>
         <li>You can request deletion of your analytics data by contacting us</li>
     </ul>
@@ -141,18 +178,24 @@
     <ul>
         <li>All network connections use HTTPS encryption</li>
         <li>Documents are processed locally — never transmitted to our servers</li>
-        <li>We do not operate any backend servers that store user data</li>
+        <li>Account data (email, profile) is stored on Supabase; passwords are hashed</li>
+        <li>You can request account deletion by contacting us</li>
     </ul>
 
     <h2>Children's Privacy</h2>
-    <p>Office Reader does not target children under 13. We do not knowingly collect personal information from children. If you believe your child has provided us with personal data, please contact us to have it removed.</p>
+    <p>Office Reader does not target children under 13. We do not knowingly collect personal
+        information from children. If you believe your child has provided us with personal data,
+        please contact us to have it removed.</p>
 
     <h2>Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with
+        an updated revision date. Continued use of the app after changes constitutes acceptance of
+        the updated policy.</p>
 
     <h2>Contact Us</h2>
     <p>If you have questions about this Privacy Policy, please contact us at:</p>
-    <p>📧 Email: <a href="mailto:officereader.techlead@gmail.com">officereader.techlead@gmail.com</a></p>
+    <p>📧 Email: <a href="mailto:officereader.techlead@gmail.com">officereader.techlead@gmail.com</a>
+    </p>
 
 </div>
 
