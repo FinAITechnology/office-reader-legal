@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Reader — Password Reset</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        h1 { font-size: 1.75rem; margin-bottom: 16px; }
+        p { opacity: 0.95; line-height: 1.6; margin-bottom: 24px; }
+        .open-app {
+            display: inline-block;
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .open-app:hover { background: rgba(255, 255, 255, 0.4); transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>✅ Đặt mật khẩu thành công</h1>
+    <p id="msg">Mở app Office Reader trên điện thoại hoặc tablet để đăng nhập bằng mật khẩu mới.</p>
+    <a href="#" id="openApp" class="open-app" style="display:none;">Mở app Office Reader</a>
+</div>
+<script>
+(function() {
+    var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var hash = window.location.hash || '';
+    var appUrl = 'officereader://auth-callback' + hash;
+
+    if (isMobile && hash) {
+        document.getElementById('msg').textContent = 'Đang mở app...';
+        document.getElementById('openApp').href = appUrl;
+        document.getElementById('openApp').style.display = 'inline-block';
+        document.getElementById('openApp').textContent = 'Nhấn để mở app';
+        window.location.href = appUrl;
+    } else if (isMobile) {
+        document.getElementById('openApp').href = 'officereader://auth-callback';
+        document.getElementById('openApp').style.display = 'inline-block';
+    }
+})();
+</script>
+</body>
+</html>
