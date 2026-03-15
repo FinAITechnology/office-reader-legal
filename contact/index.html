@@ -79,6 +79,52 @@
         }
         .quick-link:hover { border-color: #34a853; color: #1b7a34; text-decoration: none; }
         .quick-link .icon { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+        .contact-form { margin-top: 28px; }
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #3c4043;
+            font-size: 0.9rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: #34a853; }
+        .contact-form textarea { resize: vertical; min-height: 100px; }
+        .btn-send {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: #34a853;
+            color: white;
+            transition: all 0.2s;
+        }
+        .btn-send:hover { background: #1b7a34; }
+        .btn-send:disabled { background: #81c784; cursor: not-allowed; }
+        .status {
+            text-align: center;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        .status.success { display: block; background: #e8f5e9; color: #2e7d32; }
+        .status.error { display: block; background: #ffebee; color: #c62828; }
+        .status.loading { display: block; background: #e3f2fd; color: #1565c0; }
         .footer {
             text-align: center;
             padding: 24px;
@@ -115,6 +161,28 @@
         </div>
     </a>
 
+    <h2>Send Us a Message</h2>
+    <div class="contact-form">
+        <form id="contactForm">
+            <input type="hidden" name="access_key" id="ak" value="">
+            <input type="hidden" name="subject" value="[Office Reader] Contact Form Message">
+            <input type="hidden" name="from_name" value="Office Reader — Contact">
+            <input type="checkbox" name="botcheck" style="display: none;">
+
+            <label for="contactName">Your Name *</label>
+            <input type="text" name="name" id="contactName" placeholder="Your name" required>
+
+            <label for="contactEmail">Your Email *</label>
+            <input type="email" name="email" id="contactEmail" placeholder="your-email@example.com" required autocomplete="email">
+
+            <label for="contactMessage">Message *</label>
+            <textarea name="message" id="contactMessage" placeholder="How can we help you?" required></textarea>
+
+            <button type="submit" class="btn-send" id="contactSubmitBtn">Send Message</button>
+        </form>
+        <div id="contactStatus" class="status"></div>
+    </div>
+
     <h2>Quick Links</h2>
     <div class="quick-links">
         <a href="../delete-account/" class="quick-link">
@@ -139,6 +207,57 @@
 <div class="footer">
     <p>&copy; 2026 TechLead. All rights reserved.</p>
 </div>
+
+<script>
+function _d(s) { return atob(s).trim().split('').reverse().join(''); }
+document.getElementById('ak').value = _d('Nzc2ZmI2Zjg3OGZhLTcxZmEtMjg0NC1iNWRhLWNkZWVjNWE4Cg==');
+
+var form = document.getElementById('contactForm');
+var statusEl = document.getElementById('contactStatus');
+var submitBtn = document.getElementById('contactSubmitBtn');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    statusEl.className = 'status loading';
+    statusEl.textContent = 'Sending your message...';
+
+    var formData = new FormData(form);
+    var object = Object.fromEntries(formData);
+    var json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        if (data.success) {
+            statusEl.className = 'status success';
+            statusEl.textContent = 'Message sent successfully! We will get back to you soon.';
+            form.reset();
+        } else {
+            statusEl.className = 'status error';
+            statusEl.textContent = 'Failed to send: ' + (data.message || 'Unknown error. Please try again.');
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
+        statusEl.className = 'status error';
+        statusEl.textContent = 'Network error. Please try again or email us directly at finai.technology.vn@gmail.com';
+    })
+    .finally(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+    });
+});
+</script>
 
 </body>
 </html>

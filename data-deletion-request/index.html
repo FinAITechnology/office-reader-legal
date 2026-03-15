@@ -134,6 +134,9 @@
             display: none;
         }
         .status.success { display: block; background: #e8f5e9; color: #2e7d32; }
+        .status.error { display: block; background: #ffebee; color: #c62828; }
+        .status.loading { display: block; background: #e3f2fd; color: #1565c0; }
+        .btn-submit:disabled { background: #90caf9; cursor: not-allowed; }
         @media (max-width: 600px) {
             .container { margin: -16px 12px 32px; padding: 24px 20px; }
             .header { padding: 32px 16px; }
@@ -173,21 +176,26 @@
     <div class="divider">Partial Deletion Request Form</div>
 
     <form id="requestForm">
+        <input type="hidden" name="access_key" id="ak" value="">
+        <input type="hidden" name="subject" value="[Office Reader] Data Deletion Request">
+        <input type="hidden" name="from_name" value="Office Reader — Data Deletion">
+        <input type="checkbox" name="botcheck" style="display: none;">
+
         <label for="email">Email associated with your account *</label>
-        <input type="email" id="email" placeholder="your-email@example.com" required autocomplete="email">
+        <input type="email" name="email" id="email" placeholder="your-email@example.com" required autocomplete="email">
 
         <label for="dataType">What data would you like deleted? *</label>
-        <select id="dataType" required>
+        <select name="Data Type" id="dataType" required>
             <option value="">— Select —</option>
-            <option value="profile">Profile information (display name, avatar)</option>
-            <option value="stats">Activity stats (documents opened, streak, XP)</option>
-            <option value="leaderboard">Leaderboard data</option>
-            <option value="analytics">Analytics & crash report data</option>
-            <option value="other">Other (describe below)</option>
+            <option value="Profile information (display name, avatar)">Profile information (display name, avatar)</option>
+            <option value="Activity stats (documents opened, streak, XP)">Activity stats (documents opened, streak, XP)</option>
+            <option value="Leaderboard data">Leaderboard data</option>
+            <option value="Analytics & crash report data">Analytics & crash report data</option>
+            <option value="Other (see details)">Other (describe below)</option>
         </select>
 
         <label for="details">Additional details (optional)</label>
-        <textarea id="details" placeholder="Describe what specific data you want deleted..."></textarea>
+        <textarea name="Details" id="details" placeholder="Describe what specific data you want deleted..."></textarea>
 
         <button type="submit" class="btn-submit" id="submitBtn">Submit Request</button>
     </form>
@@ -205,28 +213,60 @@
 </div>
 
 <script>
-document.getElementById('requestForm').addEventListener('submit', function(e) {
+function _d(s) { return atob(s).trim().split('').reverse().join(''); }
+document.getElementById('ak').value = _d('Nzc2ZmI2Zjg3OGZhLTcxZmEtMjg0NC1iNWRhLWNkZWVjNWE4Cg==');
+
+var form = document.getElementById('requestForm');
+var statusEl = document.getElementById('status');
+var submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', function(e) {
     e.preventDefault();
+
     var email = document.getElementById('email').value.trim();
     var dataType = document.getElementById('dataType').value;
-    var details = document.getElementById('details').value.trim();
-
     if (!email || !dataType) return;
 
-    var subject = encodeURIComponent('[Office Reader] Data Deletion Request — ' + dataType);
-    var body = encodeURIComponent(
-        'Data Deletion Request\n' +
-        '=====================\n\n' +
-        'Email: ' + email + '\n' +
-        'Data to delete: ' + dataType + '\n' +
-        'Details: ' + (details || 'N/A') + '\n\n' +
-        'Please process this request within 7 business days as per our Privacy Policy.'
-    );
+    // Update subject with data type
+    form.querySelector('[name="subject"]').value = '[Office Reader] Data Deletion Request — ' + dataType;
 
-    window.location.href = 'mailto:finai.technology.vn@gmail.com?subject=' + subject + '&body=' + body;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    statusEl.className = 'status loading';
+    statusEl.textContent = 'Sending your request...';
 
-    document.getElementById('status').className = 'status success';
-    document.getElementById('status').textContent = 'Your email client should open now. If it doesn\'t, please send your request manually to finai.technology.vn@gmail.com';
+    var formData = new FormData(form);
+    var object = Object.fromEntries(formData);
+    var json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        if (data.success) {
+            statusEl.className = 'status success';
+            statusEl.textContent = 'Your data deletion request has been submitted successfully. We will process it within 7 business days.';
+            form.reset();
+        } else {
+            statusEl.className = 'status error';
+            statusEl.textContent = 'Failed to send request: ' + (data.message || 'Unknown error. Please try again.');
+        }
+    })
+    .catch(function(error) {
+        console.error(error);
+        statusEl.className = 'status error';
+        statusEl.textContent = 'Network error. Please try again or email us directly at finai.technology.vn@gmail.com';
+    })
+    .finally(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Request';
+    });
 });
 </script>
 
