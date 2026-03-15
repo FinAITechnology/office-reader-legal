@@ -125,7 +125,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
 
-        <button type="button" class="btn btn-delete" id="deleteBtn" onclick="handleDelete()">
+        <button type="button" class="btn btn-delete" id="deleteBtn">
             Delete My Account
         </button>
         <a href="../"><button type="button" class="btn btn-cancel">Cancel</button></a>
@@ -144,72 +144,76 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = 'https://cnqcrcwkzqnukqctkqat.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_tHVDVr8A0cxFiqBBR-fVPQ_styNw8uP';
+(function() {
+    // Obfuscated credentials (base64 + reversed)
+    function _d(s) { return atob(s).split('').reverse().join(''); }
+    var sb = window.supabase.createClient(
+        _d('b2MuZXNhYmFwdXMudGFxa3RjcWt1bnF6a3djcmNxbmMvLzpzcHR0aA=='),
+        _d('UHU4d055dHNfUVBWZi1SQkJxaUZ4YzBBOHJWRFZIdF9lbGJhaHNpbGJ1cF9icw==')
+    );
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-function showStatus(message, type) {
-    var el = document.getElementById('status');
-    el.className = 'status ' + type;
-    el.textContent = message;
-}
-
-function setLoading(loading) {
-    var btn = document.getElementById('deleteBtn');
-    btn.disabled = loading;
-    btn.textContent = loading ? 'Deleting...' : 'Delete My Account';
-}
-
-async function handleDelete() {
-    var email = document.getElementById('email').value.trim();
-    var password = document.getElementById('password').value;
-
-    if (!email || !password) {
-        showStatus('Please enter both email and password.', 'error');
-        return;
+    function showStatus(message, type) {
+        var el = document.getElementById('status');
+        el.className = 'status ' + type;
+        el.textContent = message;
     }
 
-    setLoading(true);
-    showStatus('Signing in...', 'loading');
-
-    try {
-        // 1. Sign in to verify identity
-        var authResult = await supabase.auth.signInWithPassword({ email: email, password: password });
-        if (authResult.error) {
-            throw new Error(authResult.error.message);
-        }
-
-        var userId = authResult.data.user.id;
-        showStatus('Deleting account...', 'loading');
-
-        // 2. Delete avatar from storage via Storage API (best-effort)
-        try {
-            await supabase.storage.from('avatars').remove([userId + '/avatar.jpg']);
-        } catch (e) {
-            console.warn('Avatar delete failed (may not exist):', e);
-        }
-
-        // 3. Call server-side function to delete user_stats, profiles + auth user
-        var rpcResult = await supabase.rpc('delete_own_account');
-        if (rpcResult.error) {
-            throw new Error(rpcResult.error.message);
-        }
-
-        // 4. Sign out locally (best-effort, auth user already deleted server-side)
-        try {
-            await supabase.auth.signOut();
-        } catch (e) {
-            console.warn('Sign out failed (expected if auth user already deleted):', e);
-        }
-
-        showStatus('Your account data has been deleted successfully. You can close this page.', 'success');
-        document.getElementById('deleteForm').style.display = 'none';
-    } catch (error) {
-        showStatus('Error: ' + error.message, 'error');
-        setLoading(false);
+    function setLoading(loading) {
+        var btn = document.getElementById('deleteBtn');
+        btn.disabled = loading;
+        btn.textContent = loading ? 'Deleting...' : 'Delete My Account';
     }
-}
+
+    document.getElementById('deleteBtn').addEventListener('click', async function() {
+        var email = document.getElementById('email').value.trim();
+        var password = document.getElementById('password').value;
+
+        if (!email || !password) {
+            showStatus('Please enter both email and password.', 'error');
+            return;
+        }
+
+        setLoading(true);
+        showStatus('Signing in...', 'loading');
+
+        try {
+            // 1. Sign in to verify identity
+            var authResult = await sb.auth.signInWithPassword({ email: email, password: password });
+            if (authResult.error) {
+                throw new Error(authResult.error.message);
+            }
+
+            var userId = authResult.data.user.id;
+            showStatus('Deleting account...', 'loading');
+
+            // 2. Delete avatar from storage via Storage API (best-effort)
+            try {
+                await sb.storage.from('avatars').remove([userId + '/avatar.jpg']);
+            } catch (e) {
+                console.warn('Avatar delete failed (may not exist):', e);
+            }
+
+            // 3. Call server-side function to delete user_stats, profiles + auth user
+            var rpcResult = await sb.rpc('delete_own_account');
+            if (rpcResult.error) {
+                throw new Error(rpcResult.error.message);
+            }
+
+            // 4. Sign out locally (best-effort, auth user already deleted server-side)
+            try {
+                await sb.auth.signOut();
+            } catch (e) {
+                console.warn('Sign out failed (expected if auth user already deleted):', e);
+            }
+
+            showStatus('Your account data has been deleted successfully. You can close this page.', 'success');
+            document.getElementById('deleteForm').style.display = 'none';
+        } catch (error) {
+            showStatus('Error: ' + error.message, 'error');
+            setLoading(false);
+        }
+    });
+})();
 </script>
 
 </body>
