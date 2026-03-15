@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Deletion Request — Office Reader</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            line-height: 1.7;
+            color: #1a1a2e;
+            background: #f8f9fa;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a73e8, #174ea6);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        .header p { opacity: 0.85; font-size: 0.95rem; }
+        .container {
+            max-width: 560px;
+            margin: -32px auto 48px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 40px 32px;
+        }
+        .info-box {
+            background: #e8f0fe;
+            border-left: 4px solid #1a73e8;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .info-box p { margin-bottom: 0; color: #174ea6; font-size: 0.9rem; }
+        .info-box a { color: #c62828; font-weight: 600; }
+        .options {
+            margin-bottom: 24px;
+        }
+        .option-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .option-card:hover { border-color: #1a73e8; }
+        .option-card h3 { color: #1a73e8; margin-bottom: 8px; font-size: 1rem; }
+        .option-card p { font-size: 0.9rem; color: #3c4043; margin-bottom: 12px; }
+        .option-card .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #1a73e8; color: white; }
+        .btn-primary:hover { background: #174ea6; }
+        .btn-danger { background: #c62828; color: white; }
+        .btn-danger:hover { background: #b71c1c; }
+        h2 {
+            font-size: 1.15rem;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #3c4043;
+            font-size: 0.9rem;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+            outline: none;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus, select:focus { border-color: #1a73e8; }
+        textarea { resize: vertical; min-height: 100px; }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: #1a73e8;
+            color: white;
+            transition: all 0.2s;
+        }
+        .btn-submit:hover { background: #174ea6; }
+        .divider {
+            text-align: center;
+            margin: 28px 0;
+            color: #80868b;
+            font-size: 0.85rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            display: inline-block;
+            width: 40%;
+            height: 1px;
+            background: #e0e0e0;
+            vertical-align: middle;
+            margin: 0 12px;
+        }
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #80868b;
+            font-size: 0.85rem;
+        }
+        a { color: #1a73e8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .status {
+            text-align: center;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        .status.success { display: block; background: #e8f5e9; color: #2e7d32; }
+        @media (max-width: 600px) {
+            .container { margin: -16px 12px 32px; padding: 24px 20px; }
+            .header { padding: 32px 16px; }
+            .header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Data Deletion Request</h1>
+    <p>Office Reader — Document Viewer & PDF Tools</p>
+</div>
+
+<div class="container">
+    <div class="info-box">
+        <p><strong>Quick option:</strong> You can instantly delete your entire account and all data from the app (Profile &rarr; Delete Account) or via our <a href="../delete-account/">self-service deletion page</a>.</p>
+    </div>
+
+    <div class="options">
+        <div class="option-card">
+            <h3>Option 1: Delete Entire Account</h3>
+            <p>Permanently delete your account and all associated data (profile, stats, avatar, leaderboard progress). This is instant and irreversible.</p>
+            <a href="../delete-account/" class="btn btn-danger">Delete My Account</a>
+        </div>
+
+        <div class="option-card">
+            <h3>Option 2: Request Partial Data Deletion</h3>
+            <p>Request deletion of specific data without deleting your entire account. Fill out the form below and we will process your request within 7 business days.</p>
+        </div>
+    </div>
+
+    <div class="divider">Partial Deletion Request Form</div>
+
+    <form id="requestForm">
+        <label for="email">Email associated with your account *</label>
+        <input type="email" id="email" placeholder="your-email@example.com" required autocomplete="email">
+
+        <label for="dataType">What data would you like deleted? *</label>
+        <select id="dataType" required>
+            <option value="">— Select —</option>
+            <option value="profile">Profile information (display name, avatar)</option>
+            <option value="stats">Activity stats (documents opened, streak, XP)</option>
+            <option value="leaderboard">Leaderboard data</option>
+            <option value="analytics">Analytics & crash report data</option>
+            <option value="other">Other (describe below)</option>
+        </select>
+
+        <label for="details">Additional details (optional)</label>
+        <textarea id="details" placeholder="Describe what specific data you want deleted..."></textarea>
+
+        <button type="submit" class="btn-submit" id="submitBtn">Submit Request</button>
+    </form>
+
+    <div id="status" class="status"></div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2026 TechLead. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+        <a href="../privacy-policy/">Privacy Policy</a> &middot;
+        <a href="../terms/">Terms of Service</a> &middot;
+        <a href="../contact/">Contact</a>
+    </p>
+</div>
+
+<script>
+document.getElementById('requestForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var dataType = document.getElementById('dataType').value;
+    var details = document.getElementById('details').value.trim();
+
+    if (!email || !dataType) return;
+
+    var subject = encodeURIComponent('[Office Reader] Data Deletion Request — ' + dataType);
+    var body = encodeURIComponent(
+        'Data Deletion Request\n' +
+        '=====================\n\n' +
+        'Email: ' + email + '\n' +
+        'Data to delete: ' + dataType + '\n' +
+        'Details: ' + (details || 'N/A') + '\n\n' +
+        'Please process this request within 7 business days as per our Privacy Policy.'
+    );
+
+    window.location.href = 'mailto:finai.technology.vn@gmail.com?subject=' + subject + '&body=' + body;
+
+    document.getElementById('status').className = 'status success';
+    document.getElementById('status').textContent = 'Your email client should open now. If it doesn\'t, please send your request manually to finai.technology.vn@gmail.com';
+});
+</script>
+
+</body>
+</html>

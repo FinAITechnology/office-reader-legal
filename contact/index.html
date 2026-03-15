@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — Office Reader</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            line-height: 1.7;
+            color: #1a1a2e;
+            background: #f8f9fa;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #34a853, #1b7a34);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        .header p { opacity: 0.85; font-size: 0.95rem; }
+        .container {
+            max-width: 560px;
+            margin: -32px auto 48px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 40px 32px;
+        }
+        .contact-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: border-color 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .contact-card:hover { border-color: #34a853; text-decoration: none; }
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .contact-card h3 { font-size: 1rem; margin-bottom: 4px; color: #1a1a2e; }
+        .contact-card p { font-size: 0.85rem; color: #5f6368; margin: 0; }
+        h2 {
+            font-size: 1.15rem;
+            color: #1a1a2e;
+            margin: 28px 0 16px;
+        }
+        .quick-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .quick-link {
+            display: block;
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #3c4043;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .quick-link:hover { border-color: #34a853; color: #1b7a34; text-decoration: none; }
+        .quick-link .icon { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #80868b;
+            font-size: 0.85rem;
+        }
+        a { color: #1a73e8; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .container { margin: -16px 12px 32px; padding: 24px 20px; }
+            .header { padding: 32px 16px; }
+            .header h1 { font-size: 1.5rem; }
+            .quick-links { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Contact Us</h1>
+    <p>Office Reader — Document Viewer & PDF Tools</p>
+</div>
+
+<div class="container">
+    <a href="mailto:finai.technology.vn@gmail.com" class="contact-card">
+        <div class="contact-icon" style="background: #e8f0fe;">📧</div>
+        <div>
+            <h3>Email Support</h3>
+            <p>finai.technology.vn@gmail.com</p>
+        </div>
+    </a>
+
+    <h2>Quick Links</h2>
+    <div class="quick-links">
+        <a href="../delete-account/" class="quick-link">
+            <span class="icon">🗑️</span>
+            Delete Account
+        </a>
+        <a href="../data-deletion-request/" class="quick-link">
+            <span class="icon">📋</span>
+            Data Deletion Request
+        </a>
+        <a href="../privacy-policy/" class="quick-link">
+            <span class="icon">🔒</span>
+            Privacy Policy
+        </a>
+        <a href="../terms/" class="quick-link">
+            <span class="icon">📜</span>
+            Terms of Service
+        </a>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2026 TechLead. All rights reserved.</p>
+</div>
+
+</body>
+</html>
